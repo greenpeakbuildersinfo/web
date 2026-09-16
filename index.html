@@ -99,7 +99,7 @@ form.addEventListener("submit", async function (e) {
         if (response.ok && result.success!="false") {
             console.log(result.success)
             notice.textContent =
-                "✓ Thank you! Something Your enquiry has been sent successfully.";
+                "✓ Thank you! Your enquiry has been sent successfully.";
             notice.style.display = "block";
             form.reset();
         } else {
