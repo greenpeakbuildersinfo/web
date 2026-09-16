@@ -51,14 +51,76 @@ footer{background:#0a3020;color:#b9cdbf;padding:55px 0 20px}.footer-grid{display
 <section id="gallery"><div class="container"><div class="section-head"><div><div class="label">Our Work</div><h2>Our Plot Maps & Plot Views</h2></div></div><div class="gallery"><div><img loading="lazy" src="MGS AVENUE.jpg" alt="Thumbal Map"><span>Thumbal Map</span></div><div><img loading="lazy" src="veeraganur_plot_map.jpg" alt="Veeraganur Map"><span>Veeraganur Map</span></div><div><img loading="lazy" src="Keeripatti_plot_map.jpg" alt="Keeripatti Map"><span>Keeripatti Map</span></div><div><img loading="lazy" src="veeraganur_plot_view.jpeg" alt="Veeraganur Plot View"><span>Veeraganur Plot View</span></div><div><img loading="lazy" src="thammampatti_plot_view.jpeg" alt="Thammampatti Plot View"><span>Thammampatti Plot View</span></div></div></div></section>
 <section class="soft"><div class="container"><div class="section-head"><div><div class="label">Testimonials</div><h2>What Our Customers Say</h2></div></div><div class="testimonials"><article class="quote"><div class="stars">★★★★★</div><p>“Green Peak Builders made our dream home a reality. Their team was professional, transparent and always supportive throughout the process.”</p><div class="person">Ramesh Kumar<small>Homeowner</small></div></article><article class="quote"><div class="stars">★★★★★</div><p>“Finding a good plot and understanding the process was easy with their guidance. We appreciated the clear communication and attention to detail.”</p><div class="person">Priya S<small>Happy Customer</small></div></article></div></div></section>
 <section class="contact" id="contact"><div class="container contact-grid"><div><div class="label">Let's Connect</div><h2>Ready to Build<br>Your Future?</h2><p>Whether you're looking for the perfect plot or planning your dream home, we're here to help.</p><div class="contact-info"><div class="contact-line"><div>⌖</div><div><b>Office Address</b><span>5/130A, Anna nagar, Angammal Colony, New bus stand back side,<br>Salem – 636001, Tamil Nadu, India</span></div></div><div class="contact-line"><div>☎</div><div><b>Phone</b><span>+91 63740 23395<br>+91 99436 36483</span></div></div><div class="contact-line"><div>✉</div><div><b>Email</b><span>greenpeakbuildersinfo@gmail.com</span></div></div><div class="contact-line"><div>◷</div><div><b>Office Hours</b><span>Monday – Saturday: 9:00 AM – 6:00 PM</span></div></div></div></div>
-<form class="form" id="enquiry" action="https://formsubmit.co/greenpeakbuildersinfo@gmail.com" method="POST"><h3>Send Us an Enquiry</h3><div class="form-grid"><div class="field"><label>Full Name *</label><input required name="name" placeholder="Your name"></div><div class="field"><label>Phone Number *</label><input required name="phone" type="tel" placeholder="+91"></div></div><div class="field"><label>Email Address</label><input name="email" type="email" placeholder="you@example.com"></div><div class="field"><label>I'm Interested In</label><select name="interest"><option>Residential Plots</option><option>Home Construction</option><option>Home Design & Planning</option><option>Legal & Documentation</option><option>Other</option></select></div><div class="field"><label>Your Message</label><textarea name="message" placeholder="Tell us how we can help..."></textarea></div><button class="btn" type="submit">Submit Enquiry ↗</button><div class="notice" id="notice" role="status"></div></form></div></section>
+<form class="form" id="enquiry" method="POST"><h3>Send Us an Enquiry</h3><div class="form-grid"><div class="field"><label>Full Name *</label><input required name="name" placeholder="Your name"></div><div class="field"><label>Phone Number *</label><input required name="phone" type="tel" placeholder="+91"></div></div><div class="field"><label>Email Address</label><input name="email" type="email" placeholder="you@example.com"></div><div class="field"><label>I'm Interested In</label><select name="interest"><option>Residential Plots</option><option>Home Construction</option><option>Home Design & Planning</option><option>Legal & Documentation</option><option>Other</option></select></div><div class="field"><label>Your Message</label><textarea name="message" placeholder="Tell us how we can help..."></textarea></div><button class="btn" type="submit">Submit Enquiry ↗</button><div class="notice" id="notice" role="status"></div></form></div></section>
 </main>
 <footer><div class="container"><div class="footer-grid"><div><div class="logo footer-logo">GREEN PEAK<small>BUILDERS</small></div><p>More than just plots — we build homes, dreams and communities.</p></div><div><div class="footer-title">Quick Links</div><ul><li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#plots">Plots</a></li><li><a href="#services">Services</a></li></ul></div><div><div class="footer-title">Services</div><ul><li>Residential Plots</li><li>Home Construction</li><li>Home Design</li><li>Documentation</li></ul></div><div><div class="footer-title">Get In Touch</div><ul><li>+91 63740 23395</li><li>greenpeakbuildersinfo@gmail.com</li><li>Salem, Tamil Nadu</li></ul></div></div><div class="bottom"><span>© 2026 Green Peak Builders. All rights reserved.</span><span>Privacy Policy · Terms & Conditions</span></div></div></footer>
 <script>
 const menu=document.querySelector('.menu'),nav=document.querySelector('nav');
 menu.addEventListener('click',()=>{nav.classList.toggle('open');menu.setAttribute('aria-expanded',nav.classList.contains('open'))});
 document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
-document.getElementById('enquiry').addEventListener('submit',e=>{const name=new FormData(e.target).get('name');const notice=document.getElementById('notice');notice.textContent='Thank you, '+name+' for contacting us. We will reach you shortly to discuss about your needs';notice.classList.add('show');e.target.reset()});
+const form = document.getElementById("enquiry");
+const notice = document.getElementById("notice");
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const button = form.querySelector("button");
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+    notice.textContent = "";
+
+    const formData = new FormData(form);
+
+    const data = {
+        name: formData.get("name"),
+        phone: formData.get("phone"),
+        email: formData.get("email"),
+        interest: formData.get("interest"),
+        message: formData.get("message")
+    };
+
+    try {
+        const response = await fetch(
+            "https://formsubmit.co/ajax/greenpeakbuildersinfo@gmail.com",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("FormSubmit response:", result);
+
+        if (response.ok && result.success!="false") {
+            console.log(result.success)
+            notice.textContent =
+                "✓ Thank you! Something Your enquiry has been sent successfully.";
+            notice.style.display = "block";
+            form.reset();
+        } else {
+            notice.textContent =
+                "Something went wrong. Please try again.";
+            notice.style.display = "block";
+        }
+
+    } catch (error) {
+        console.error("FormSubmit error:", error);
+
+        notice.textContent =
+            "Unable to send your enquiry. Please try again.";
+        notice.style.display = "block";
+
+    }
+
+    button.disabled = false;
+    button.textContent = "Submit Enquiry ↗";
+});
+
 </script>
 </body>
 </html>
